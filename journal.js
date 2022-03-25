@@ -350,20 +350,28 @@ function addImageToCarousel() {
   var notUploaded = true;
 
   // generate cookie for the image link that lasts for a week
-  for(let j = 3; j < 20; j++){
-    var imageNum = "imgNum" + j;
-    var existingImg = readCookie(imageNum);
-    // create a new cookie if a cookie with that ID does not exist already
-    if(existingImg == null || existingImg == ""){
-      createCookie(imageNum, imageURL, 7);
-    }
-
-    // a cookie exists for all the images in the carousel
-    if(j+1 == 20){
-      // change one of the 3 default images
-      var randNum = Math.floor(Math.random() * 3);
-      imageNum = "imgNum" + randNum;
-      createCookie(imageNum, imageURL, 7);
+  var randNum = Math.floor(Math.random() * 3);
+  var imageNum = "imgNum" + randNum;
+  var existingImg = readCookie(imageNum);
+  // create a new cookie if a cookie with that ID does not exist already
+  if(existingImg == null || existingImg == ""){
+    createCookie(imageNum, imageURL, 7);
+  }
+  else {
+    for(let ind = 0; ind < 20; ind++){
+      imageNum = "imgNum" + ind;
+      existingImg = readCookie(imageNum);
+      if(existingImg == null || existingImg == ""){
+        createCookie(imageNum, imageURL, 7);
+        break;
+      }
+      // a cookie exists for all the images in the carousel
+      if(ind+1 == 20){
+        // change one of the 3 default images
+        var randNum = Math.floor(Math.random() * 3);
+        imageNum = "imgNum" + randNum;
+        createCookie(imageNum, imageURL, 7);
+      }
     }
   }
   // clear input
